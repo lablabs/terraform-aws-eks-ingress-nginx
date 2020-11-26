@@ -55,7 +55,7 @@ See [Basic example](examples/basic/README.md) for further information.
 | k8s\_create\_namespace | Whether to create k8s namespace with name defined by `k8s_namespace` | `bool` | `true` | no |
 | k8s\_namespace | The K8s namespace in which the ingress-nginx has been created | `string` | `"ingress-controller"` | no |
 | mod\_dependency | Dependence variable binds all AWS resources allocated by this module, dependent modules reference this variable | `bool` | `null` | no |
-| settings | Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/nginx/nginx-ingress | `map(any)` | `{}` | no |
+| settings | Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx | `map(any)` | `{}` | no |
 
 ## Outputs
 

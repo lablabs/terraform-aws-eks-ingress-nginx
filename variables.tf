@@ -1,4 +1,4 @@
-# nginx-ingress
+# ingress-nginx
 
 variable "enabled" {
   type        = bool
@@ -55,5 +55,5 @@ variable "mod_dependency" {
 variable "settings" {
   type        = map(any)
   default     = {}
-  description = "Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/nginx/nginx-ingress"
+  description = "Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx"
 }
