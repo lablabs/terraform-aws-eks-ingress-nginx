@@ -2,9 +2,9 @@ name: Terraform validation
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
 env:
   TERRAFORM_DOCS_VERSION: "v0.11.2"
