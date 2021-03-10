@@ -36,12 +36,21 @@ See [Basic example](examples/basic/README.md) for further information.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.26, < 0.14.0 |
-| aws | >= 2.0, < 4.0 |
-| helm | >= 1.0, < 1.4.0 |
-| kubernetes | >=1.10.0 |
-| local | ~> 1.2 |
-| null | ~> 2.0 |
+| terraform | >= 0.13 |
+| aws | >= 2.0 |
+| helm | >= 1.0 |
+| kubernetes | >= 1.10 |
+
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
+| [helm_release](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) |
 
 ## Inputs
 
@@ -49,7 +58,7 @@ See [Basic example](examples/basic/README.md) for further information.
 |------|-------------|------|---------|:--------:|
 | enabled | Variable indicating whether deployment is enabled | `bool` | `true` | no |
 | helm\_chart\_name | Helm chart name to be installed | `string` | `"ingress-nginx"` | no |
-| helm\_chart\_version | Version of the Helm chart | `string` | `"3.12.0"` | no |
+| helm\_chart\_version | Version of the Helm chart | `string` | `"3.24.0"` | no |
 | helm\_release\_name | Helm release name | `string` | `"ingress-nginx"` | no |
 | helm\_repo\_url | Helm repository | `string` | `"https://kubernetes.github.io/ingress-nginx"` | no |
 | k8s\_create\_namespace | Whether to create k8s namespace with name defined by `k8s_namespace` | `bool` | `true` | no |
@@ -62,7 +71,6 @@ See [Basic example](examples/basic/README.md) for further information.
 | Name | Description |
 |------|-------------|
 | helm\_release\_attributes | Helm release attributes |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Contributing and reporting issues
