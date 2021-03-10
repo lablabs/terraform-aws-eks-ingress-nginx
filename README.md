@@ -58,7 +58,7 @@ No Modules.
 |------|-------------|------|---------|:--------:|
 | enabled | Variable indicating whether deployment is enabled | `bool` | `true` | no |
 | helm\_chart\_name | Helm chart name to be installed | `string` | `"ingress-nginx"` | no |
-| helm\_chart\_version | Version of the Helm chart | `string` | `"3.12.0"` | no |
+| helm\_chart\_version | Version of the Helm chart | `string` | `"3.24.0"` | no |
 | helm\_release\_name | Helm release name | `string` | `"ingress-nginx"` | no |
 | helm\_repo\_url | Helm repository | `string` | `"https://kubernetes.github.io/ingress-nginx"` | no |
 | k8s\_create\_namespace | Whether to create k8s namespace with name defined by `k8s_namespace` | `bool` | `true` | no |
