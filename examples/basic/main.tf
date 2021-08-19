@@ -40,7 +40,6 @@ module "eks_workers" {
 module "ingress_nginx" {
   source = "../../"
 
-  cluster_name = module.eks_cluster.eks_cluster_id
   settings = {
     # Examples:
 
