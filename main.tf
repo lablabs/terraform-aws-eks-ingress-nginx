@@ -1,5 +1,5 @@
 resource "helm_release" "self" {
-  count            = var.enabled ? 1 : 0
+  count            = var.enabled && !var.argo_application_enabled ? 1 : 0
   chart            = var.helm_chart_name
   create_namespace = var.helm_create_namespace
   namespace        = var.k8s_namespace
