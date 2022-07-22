@@ -1,5 +1,6 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.13.0"
 
   name               = "ingress-nginx-vpc"
   cidr               = "10.0.0.0/16"
@@ -9,67 +10,83 @@ module "vpc" {
 }
 
 module "eks_cluster" {
-  source = "cloudposse/eks-cluster/aws"
+  source  = "cloudposse/eks-cluster/aws"
+  version = "0.45.0"
 
   region     = "eu-central-1"
   subnet_ids = module.vpc.public_subnets
   vpc_id     = module.vpc.vpc_id
   name       = "ingress-nginx"
-
-  workers_security_group_ids = [module.eks_workers.security_group_id]
-  workers_role_arns          = [module.eks_workers.workers_role_arn]
 }
 
-module "eks_workers" {
-  source = "cloudposse/eks-workers/aws"
+module "eks_node_group" {
+  source  = "cloudposse/eks-node-group/aws"
+  version = "0.28.0"
 
-  cluster_certificate_authority_data = module.eks_cluster.eks_cluster_certificate_authority_data
-  cluster_endpoint                   = module.eks_cluster.eks_cluster_endpoint
-  cluster_name                       = "ingress-nginx"
-  instance_type                      = "t3.medium"
-  max_size                           = 1
-  min_size                           = 1
-  subnet_ids                         = module.vpc.public_subnets
-  vpc_id                             = module.vpc.vpc_id
-
-  associate_public_ip_address = true
+  cluster_name   = "lb_controller"
+  instance_types = ["t3.medium"]
+  subnet_ids     = module.vpc.public_subnets
+  min_size       = 1
+  desired_size   = 1
+  max_size       = 2
+  depends_on     = [module.eks_cluster.kubernetes_config_map_id]
 }
 
-# Use the module:
-
-module "ingress_nginx" {
+module "ingress_nginx_disabled" {
   source = "../../"
 
-  settings = {
-    # Examples:
+  enabled = false
+}
 
-    ## controller:
-    ##   image:
-    ##     tag: "v0.41.2"
-    #
-    # "controller.image.tag" = "v0.41.2"
+module "ingress_nginx_helm" {
+  source = "../../"
 
-    ## extraEnv:
-    ## - name: var1
-    ##   value: value1
-    ## - name: var2
-    ##   value: value2
-    #
-    ## "extraEnv[0].name"  = "var1"
-    ## "extraEnv[0].value" = "value1"
-    ## "extraEnv[1].name"  = "var2"
-    ## "extraEnv[1].value" = "value2"
+  enabled           = true
+  argo_enabled      = false
+  argo_helm_enabled = false
 
-    ## extraEnv:
-    ## - name: var3
-    ##   valueFrom:
-    ##     secretKeyRef:
-    ##       name: existing-secret
-    ##       key: varname3-key
+  helm_release_name = "ingress-nginx-helm"
+  namespace         = "ingress-nginx-helm"
 
-    # "extraEnv[2].name" = "var3"
-    # "extraEnv[2].valueFrom.secretKeyRef.name" = "existing-secret"
-    # "extraEnv[2].valueFrom.secretKeyRef.key" = "varname3-key"
+  values = yamlencode({
+    "podLabels" : {
+      "app" : "ingress-nginx-helm"
+    }
+  })
+
+  helm_timeout = 240
+  helm_wait    = true
+}
+
+module "ingress_nginx_argo_kubernetes" {
+  source = "../../"
+
+  enabled           = true
+  argo_enabled      = true
+  argo_helm_enabled = false
+
+  helm_release_name = "ingress-nginx-argo-kubernetes"
+  namespace         = "ingress-nginx-argo-kubernetes"
+
+  argo_sync_policy = {
+    "automated" : {}
+    "syncOptions" = ["CreateNamespace=true"]
   }
+}
 
+module "ingress_nginx_argo_helm" {
+  source = "../../"
+
+  enabled           = true
+  argo_enabled      = true
+  argo_helm_enabled = true
+
+  helm_release_name = "ingress-nginx-argo-helm"
+  namespace         = "ingress-nginx-argo-helm"
+
+  argo_namespace = "argo"
+  argo_sync_policy = {
+    "automated" : {}
+    "syncOptions" = ["CreateNamespace=true"]
+  }
 }
