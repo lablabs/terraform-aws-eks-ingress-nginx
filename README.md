@@ -128,6 +128,8 @@ No modules.
 | <a name="input_helm_wait"></a> [helm\_wait](#input\_helm\_wait) | Will wait until all helm release resources are in a ready state before marking the release as successful. It will wait for as long as timeout | `bool` | `false` | no |
 | <a name="input_helm_wait_for_jobs"></a> [helm\_wait\_for\_jobs](#input\_helm\_wait\_for\_jobs) | If wait is enabled, will wait until all helm Jobs have been completed before marking the release as successful. It will wait for as long as timeout | `bool` | `false` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The K8s namespace in which the ingress-nginx has been created | `string` | `"ingress-controller"` | no |
+| <a name="input_proxy_body_size"></a> [proxy\_body\_size](#input\_proxy\_body\_size) | Maximum allowed size of the client request body, see https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size | `string` | `"32m"` | no |
+| <a name="input_proxy_buffer_size"></a> [proxy\_buffer\_size](#input\_proxy\_buffer\_size) | Size of the buffer used for reading the first part of the response received from the proxied server, see https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size | `string` | `"16k"` | no |
 | <a name="input_settings"></a> [settings](#input\_settings) | Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx | `map(any)` | `{}` | no |
 | <a name="input_values"></a> [values](#input\_values) | Additional yaml encoded values which will be passed to the Helm chart. | `string` | `""` | no |
 

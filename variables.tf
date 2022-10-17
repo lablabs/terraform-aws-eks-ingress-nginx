@@ -56,6 +56,18 @@ variable "values" {
   description = "Additional yaml encoded values which will be passed to the Helm chart."
 }
 
+variable "proxy_body_size" {
+  type        = string
+  default     = "32m"
+  description = "Maximum allowed size of the client request body, see https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size"
+}
+
+variable "proxy_buffer_size" {
+  type        = string
+  default     = "16k"
+  description = "Size of the buffer used for reading the first part of the response received from the proxied server, see https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size"
+}
+
 variable "argo_namespace" {
   type        = string
   default     = "argo"
