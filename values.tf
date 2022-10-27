@@ -1,11 +1,6 @@
 locals {
   values_default = yamlencode({
-    "controller" : {
-      "config" : {
-        "proxy-body-size" : var.proxy_body_size
-        "proxy-buffer-size" : var.proxy_buffer_size
-      }
-    }
+
   })
 }
 
