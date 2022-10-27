@@ -56,18 +56,6 @@ variable "values" {
   description = "Additional yaml encoded values which will be passed to the Helm chart."
 }
 
-variable "proxy_body_size" {
-  type        = string
-  default     = "32m"
-  description = "Maximum allowed size of the client request body, see https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size"
-}
-
-variable "proxy_buffer_size" {
-  type        = string
-  default     = "16k"
-  description = "Size of the buffer used for reading the first part of the response received from the proxied server, see https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size"
-}
-
 variable "argo_namespace" {
   type        = string
   default     = "argo"
@@ -99,6 +87,10 @@ variable "argo_project" {
 }
 
 variable "argo_info" {
+  type = list(object({
+    name  = string
+    value = string
+  }))
   default = [{
     "name"  = "terraform"
     "value" = "true"
@@ -107,11 +99,13 @@ variable "argo_info" {
 }
 
 variable "argo_sync_policy" {
+  type        = any
   description = "ArgoCD syncPolicy manifest parameter"
   default     = {}
 }
 
 variable "argo_metadata" {
+  type = any
   default = {
     "finalizers" : [
       "resources-finalizer.argocd.argoproj.io"
@@ -121,11 +115,13 @@ variable "argo_metadata" {
 }
 
 variable "argo_apiversion" {
+  type        = string
   default     = "argoproj.io/v1alpha1"
   description = "ArgoCD Appliction apiVersion"
 }
 
 variable "argo_spec" {
+  type        = any
   default     = {}
   description = "ArgoCD Application spec configuration. Override or create additional spec parameters"
 }
@@ -143,6 +139,7 @@ variable "argo_kubernetes_manifest_computed_fields" {
 }
 
 variable "argo_kubernetes_manifest_field_manager_name" {
+  type        = string
   default     = "Terraform"
   description = "The name of the field manager to use when applying the kubernetes manifest resource. Defaults to Terraform"
 }
