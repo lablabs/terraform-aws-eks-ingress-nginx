@@ -1,4 +1,3 @@
-# IMPORTANT: Add addon specific variables here
 variable "enabled" {
   type        = bool
   default     = true
