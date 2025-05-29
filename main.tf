@@ -6,9 +6,7 @@
  * [![Terraform validate](https://github.com/lablabs/terraform-aws-eks-ingress-nginx/actions/workflows/validate.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-eks-ingress-nginx/actions/workflows/validate.yaml)
  * [![pre-commit](https://github.com/lablabs/terraform-aws-eks-ingress-nginx/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-eks-ingress-nginx/actions/workflows/pre-commit.yaml)
  */
-# FIXME config: update addon docs above
 locals {
-  # FIXME config: add addon configuration here
   addon = {
     name = "ingress-nginx"
 
@@ -20,4 +18,6 @@ locals {
   addon_values = yamlencode({
     # FIXME config: add default values here
   })
+
+  addon_depends_on = []
 }
