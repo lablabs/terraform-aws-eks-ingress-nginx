@@ -8,15 +8,14 @@
  */
 locals {
   addon = {
-    name = "ingress-nginx"
+    name      = "ingress-nginx"
+    namespace = "ingress-controller"
 
-    helm_chart_name    = "ingress-nginx"
-    helm_chart_version = "4.1.4"
+    helm_chart_version = "4.12.1"
     helm_repo_url      = "https://kubernetes.github.io/ingress-nginx"
   }
 
   addon_values = yamlencode({
-    # FIXME config: add default values here
   })
 
   addon_depends_on = []
