@@ -1,5 +1,5 @@
 /**
- * # AWS EKS Ingress Nginx Terraform module
+ * # AWS EKS Ingress Nginx Controller Terraform module
  *
  * A Terraform module to deploy the ingress nginx on Amazon EKS cluster.
  *
